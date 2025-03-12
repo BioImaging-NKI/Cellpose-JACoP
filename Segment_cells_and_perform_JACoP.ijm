@@ -11,6 +11,7 @@
  * Output:
  * - labelmap images containing Cellpose segmentations
  * - Analyzed images with two extra channels containing the used masks (thresholds) for colocalization.
+ *   The analysis parameters are added to the "Info" image property [Image>Show Info] as part of the TIFF header).
  * - .tsv files with colocalization results
 
  * Author: Bram van den Broek, Netherlands Cancer Institute, March 2024
@@ -27,22 +28,22 @@
 #@ String	image_message 			(value="<html><p style='font-size:12px; color:#3366cc; font-weight:bold'>Image settings</p></html>", visibility="MESSAGE")
 #@ Integer 	nucleiChannel			(label = "Nuclei channel (-1 if not used)", value = 1)
 #@ Integer	cytoChannel 			(label = "Cytoplasm channel", value = 2)
-#@ Integer	colocChannelA 			(label = "LDLR channel (channel A)", value = 2)
-#@ Integer	colocChannelB 			(label = "counterstain channel (channel B)", value = 3)
-#@ Integer	XYBinning				(label = "Image XY binning before correction [1-n]", value = 1, min=1)
+#@ Integer	colocChannelA 			(label = "colocalization channel A", value = 2)
+#@ Integer	colocChannelB 			(label = "colocalization channel B", value = 3)
+#@ Integer	XYBinning				(label = "Image XY binning before analysis [1-n]", value = 1, min=1)
 #@ Double	GaussianBlurSigma		(label = "Gaussian blur radius (sigma) before JACoP (pixels)", value = 1, min=0)
 
 #@ String	segmentation_message 	(value = "<html><p style='font-size:12px; color:#3366cc; font-weight:bold'>Cell detection settings</p></html>", visibility="MESSAGE")
 #@ String 	CellposeModel			(label = "Cellpose model", choices={"cyto3","cyto2_cp3","nuclei","custom"}, style="listBox", value="cyto3")
 #@ Integer	CellposeDiameter		(label = "Cell diameter (pixels), 0 for automatic", value = 80, min=0, description="Estimation of the cell diameter. Automatic may work, but is not always the best choice.")
-#@ Double 	flowThreshold			(label = "flow threshold [0.0 - 1.0], default 0.4", value = 0.4, min=0, max=1, style="format:0.0", description="lower values will accept more cells")
+#@ Double 	flowThreshold			(label = "flow threshold [0.0 - 1.0], default 0.4", value = 0.4, min=0, max=1, style="format:0.0", description="higher values will accept more cells")
 #@ Double	cellprobThreshold		(label = "probability threshold [-6.0 - 6.0], default 0.0", value = 0.0, min=-6, max=6, style="format:0.0", description="lower values will accept more cells and also enlarge the segmentations")
 #@ Boolean	load_labelmap_boolean	(label = "Load segmentation label images from disk instead of Cellpose?", value=false)
 #@ File		labelmapFolder			(label = "Folder containing label images", style = "directory", required=false, description="Load segmented labels from disk instead of running Cellpose segmentation. Label images should have the same basename as the input images, complemented with '_labelmap.tif'.")
 
 #@ String	coloc_message 			(value = "<html><p style='font-size:12px; color:#3366cc; font-weight:bold'>JACoP settings</p></html>", visibility="MESSAGE")
-#@ String	thresholdMethodA		(label = "Threshold method", choices = {"Costes Auto-Threshold", "Default", "Huang", "Intermodes", "IsoData", "IJ_IsoData", "Li", "MaxEntropy", "Mean", "MinError", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen", "Use Manual Threshold Below"}, style="list", value="Costes Auto-Threshold")
-#@ String	thresholdMethodB		(label = "Threshold method", choices = {"Costes Auto-Threshold", "Default", "Huang", "Intermodes", "IsoData", "IJ_IsoData", "Li", "MaxEntropy", "Mean", "MinError", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen", "Use Manual Threshold Below"}, style="list", value="Costes Auto-Threshold")
+#@ String	thresholdMethodA		(label = "Threshold method channel A", choices = {"Costes Auto-Threshold", "Default", "Huang", "Intermodes", "IsoData", "IJ_IsoData", "Li", "MaxEntropy", "Mean", "MinError", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen", "Use Manual Threshold Below"}, style="list", value="Costes Auto-Threshold")
+#@ String	thresholdMethodB		(label = "Threshold method channel B", choices = {"Costes Auto-Threshold", "Default", "Huang", "Intermodes", "IsoData", "IJ_IsoData", "Li", "MaxEntropy", "Mean", "MinError", "Minimum", "Moments", "Otsu", "Percentile", "RenyiEntropy", "Shanbhag", "Triangle", "Yen", "Use Manual Threshold Below"}, style="list", value="Costes Auto-Threshold")
 #@ Integer 	manualThresholdA		(label = "Manual threshold channel A", value = 0, min=0, description="Only used when Threshold method is set to 'Use Manual Threshold Below'")
 #@ Integer	manualThresholdB		(label = "Manual threshold channel B", value = 0, min=0, description="Only used when Threshold method is set to 'Use Manual Threshold Below'")
 
