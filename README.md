@@ -14,7 +14,7 @@ Run the wrapper at least once to set the cellpose environment path and type.
 _Input_: a folder containing multichannel 2D images. Multiseries microscopy format files (.lif, .czi etc.) are also supported.
 _Output_: for each image:
 - labelmap images containing Cellpose segmentations
-- Analyzed images with two extra channels containing the used masks (thresholds) for colocalization.
+- Analyzed images with two extra channels containing the used masks (thresholds) for colocalization. The analysis parameters are added to the "Info" image property [Image>Show Info] as part of the TIFF header).
 - `tsv` files with colocalization results. These can be directly loaded in Excel/R/Prism for further processing.
 
 ## Running the script
