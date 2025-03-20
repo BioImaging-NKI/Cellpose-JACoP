@@ -1,5 +1,5 @@
 # Cellpose-JACoP
-ImageJ macro to perform [Cellpose](https://github.com/MouseLand/cellpose) segmentation and subsequent [BIOP JACoP](https://github.com/BIOP/ijp-jacop-b) colocalization analysis on every cell for all images in a folder.
+Fiji macro to perform [Cellpose](https://github.com/MouseLand/cellpose) segmentation and subsequent [BIOP JACoP](https://github.com/BIOP/ijp-jacop-b) colocalization analysis on every cell for all images in a folder.
 
 ## Installation / Requirements
 Download [`Segment_cells_and_perform_JACoP.ijm`](https://github.com/BioImaging-NKI/Cellpose-JACoP/blob/main/Segment_cells_and_perform_JACoP.ijm). If placed in Fiji.app\plugins\Macros the macro appears in the Fiji menu bar under `Plugins -> Macros`. Otherwise, drag & drop onto the Fiji window and click 'Run' in the Script Editor.
